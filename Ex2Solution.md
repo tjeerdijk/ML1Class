@@ -6,22 +6,11 @@ Tjeerd Dijkstra
 Introduction
 ============
 
-Examplary solution of excersises set 2 for Tuebingen neuroschool Machine Learning 1 Class. Analysis of data from the "EEG brainwave for confusion" Kaggle competition at <https://www.kaggle.com/wanghaohan/eeg-brain-wave-for-confusion> This solution shows a couple of features that are helpful: \* it uses an R notebook, webinar at <https://www.rstudio.com/resources/webinars/introducing-notebooks-with-r-markdown/> \* it uses git and github for version control and backup. See <http://happygitwithr.com>
+Examplary solution of excersises set 2 for Tuebingen neuroschool Machine Learning 1 Class. Analysis of data from the "EEG brainwave for confusion" Kaggle competition at <https://www.kaggle.com/wanghaohan/eeg-brain-wave-for-confusion> This solution shows a couple of features that are helpful: 1. it uses an R notebook, webinar at <https://www.rstudio.com/resources/webinars/introducing-notebooks-with-r-markdown/> 2. it uses git and github for version control and backup. See <http://happygitwithr.com>
 
 ``` r
-library(readr); library(dplyr); library(tidyr); library(tibble); library(ggplot2)
+library(readr); library(dplyr, warn.conflicts = FALSE); library(tidyr); library(tibble); library(ggplot2)
 ```
-
-    ## 
-    ## Attaching package: 'dplyr'
-
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
 
 1 Load and clean data
 =====================
@@ -72,7 +61,7 @@ Ymean <- Ymean %>% mutate(RepConfFactor = factor(if_else(ReportedConfusion == 1,
 Using ggpairs() to look at all the data.
 
 ``` r
-library(GGally); ggpairs(select(ungroup(Ymean), Attention:Gamma2))
+library(GGally); ggp.out <- ggpairs(select(ungroup(Ymean), Attention:Gamma2)); print(ggp.out, progress = FALSE)
 ```
 
     ## 
