@@ -61,15 +61,8 @@ Ymean <- Ymean %>% mutate(RepConfFactor = factor(if_else(ReportedConfusion == 1,
 Using ggpairs() to look at all the data.
 
 ``` r
-library(GGally); ggp.out <- ggpairs(select(ungroup(Ymean), Attention:Gamma2)); print(ggp.out, progress = FALSE)
+library(GGally, warn.conflicts = FALSE); ggp.out <- ggpairs(select(ungroup(Ymean), Attention:Gamma2)); print(ggp.out, progress = FALSE)
 ```
-
-    ## 
-    ## Attaching package: 'GGally'
-
-    ## The following object is masked from 'package:dplyr':
-    ## 
-    ##     nasa
 
 ![](Ex2Solution_files/figure-markdown_github/ggpairs-1.png)
 
@@ -80,14 +73,14 @@ print(ggplot(Ymean, aes(x = VideoID, y = Attention)) + geom_point() +
         facet_wrap( ~ SubjectID, nrow = 2) + labs(title = "Attention"))
 ```
 
-![](Ex2Solution_files/figure-markdown_github/unnamed-chunk-1-1.png)
+![](Ex2Solution_files/figure-markdown_github/OutlierPlotAttentionMediationSeparate-1.png)
 
 ``` r
 print(ggplot(Ymean, aes(x = VideoID, y = Mediation)) + geom_point() +
         facet_wrap( ~ SubjectID, nrow = 2) + labs(title = "Mediation"))
 ```
 
-![](Ex2Solution_files/figure-markdown_github/unnamed-chunk-1-2.png)
+![](Ex2Solution_files/figure-markdown_github/OutlierPlotAttentionMediationSeparate-2.png)
 
 E2
 --
@@ -101,4 +94,4 @@ print(ggplot(Y.plot, aes(x = VideoID, y = AttMedValue, group = AttMed, color = A
         labs(title = "Outlier Analysis of Attention and Mediation"))
 ```
 
-![](Ex2Solution_files/figure-markdown_github/unnamed-chunk-2-1.png)
+![](Ex2Solution_files/figure-markdown_github/OutlierPlotAttentionMediationCombined-1.png)
