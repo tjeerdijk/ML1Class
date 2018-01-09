@@ -169,7 +169,7 @@ knitr::kable(PredSkew, align = "c")
 E6
 ==
 
-Left for next year
+Left for next year (2019!)
 
 E7
 ==
