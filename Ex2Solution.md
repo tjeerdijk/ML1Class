@@ -1,7 +1,7 @@
 Exercise Set 2 Solution
 ================
 Tjeerd Dijkstra
-2018-01-08
+2018-01-11
 
 Introduction
 ============
@@ -140,10 +140,14 @@ Ymean <- Ymean %>% filter(Attention > 0 & Mediation > 0)
 E5
 --
 
+As before, `gather()` prepares a data.frame for plotting with ggplot such that `Predictor` can be used as a factor to facet the data. As the frequency bands `Delta` ... `Gamma2` are ordered, I prescribe the order with a call to `factor()`. A nice challenge is to put the skewness values in the facet labels (left for 2019!).
+
 ``` r
-Y.plot <- gather(Ymean, Predictor, PredValue, Delta:Gamma2)
+Y.plot <- gather(Ymean, PredictorName, PredValue, Delta:Gamma2)
+Y.plot <- Y.plot %>% mutate(PredictorName = factor(PredictorName,
+              c("Delta", "Theta", "Alpha1", "Alpha2", "Beta1", "Beta2", "Gamma1", "Gamma2")))
 print(ggplot(Y.plot, aes(x = PredValue)) +
-        geom_density() + facet_wrap( ~ Predictor, nrow = 2, scales = "free") +
+        geom_density() + facet_wrap( ~ PredictorName, nrow = 2, scales = "free") +
         labs(title = "Predictor Distributions"))
 ```
 
@@ -151,20 +155,20 @@ print(ggplot(Y.plot, aes(x = PredValue)) +
 
 ``` r
 library(e1071)
-PredSkew <- Y.plot %>% group_by(Predictor) %>% summarize(Skewness = skewness(PredValue))
+PredSkew <- Y.plot %>% group_by(PredictorName) %>% summarize(Skewness = skewness(PredValue))
 knitr::kable(PredSkew, align = "c")
 ```
 
-| Predictor |  Skewness  |
-|:---------:|:----------:|
-|   Alpha1  |  0.7937144 |
-|   Alpha2  |  1.1751507 |
-|   Beta1   |  0.6952884 |
-|   Beta2   |  1.0630570 |
-|   Delta   | -0.4232785 |
-|   Gamma1  |  1.2104615 |
-|   Gamma2  |  0.8156700 |
-|   Theta   |  0.3088136 |
+| PredictorName |  Skewness  |
+|:-------------:|:----------:|
+|     Delta     | -0.4232785 |
+|     Theta     |  0.3088136 |
+|     Alpha1    |  0.7937144 |
+|     Alpha2    |  1.1751507 |
+|     Beta1     |  0.6952884 |
+|     Beta2     |  1.0630570 |
+|     Gamma1    |  1.2104615 |
+|     Gamma2    |  0.8156700 |
 
 E6
 ==
