@@ -171,12 +171,12 @@ knitr::kable(PredSkew, align = "c")
 |     Gamma2    |  0.8156700 |
 
 E6
-==
+--
 
 Left for next year (2019!)
 
 E7
-==
+--
 
 `corrplot()` shows that Delta, Theta, Alpha1, Alpha2 and Beta2 are more correlated as a group and that Beta2, Gamma1 and Gamma2 form a second group.
 
@@ -187,3 +187,26 @@ library(corrplot, quietly = TRUE); corrplot(cor(select(ungroup(Ymean), Delta:Gam
     ## corrplot 0.84 loaded
 
 ![](Ex2Solution_files/figure-markdown_github/corrplot-1.png)
+
+4 Basic linear regression
+=========================
+
+E8
+--
+
+``` r
+Y.plot <- gather(Ymean, PredictorName, PredValue, Delta:Gamma2)
+Y.plot <- Y.plot %>% mutate(PredictorName = factor(PredictorName,
+              c("Delta", "Theta", "Alpha1", "Alpha2", "Beta1", "Beta2", "Gamma1", "Gamma2")))
+print(ggplot(Y.plot, aes(x = PredValue, y = Attention)) + geom_point() + geom_smooth(method = "loess") +
+       facet_wrap( ~ PredictorName, nrow = 2, scales = "free_x") + labs(title = "Attention"))
+```
+
+![](Ex2Solution_files/figure-markdown_github/AttMedPlotAllPredictors-1.png)
+
+``` r
+print(ggplot(Y.plot, aes(x = PredValue, y = Mediation)) + geom_point() + geom_smooth(method = "loess") +
+       facet_wrap( ~ PredictorName, nrow = 2, scales = "free_x") + labs(title = "Mediation"))
+```
+
+![](Ex2Solution_files/figure-markdown_github/AttMedPlotAllPredictors-2.png)
